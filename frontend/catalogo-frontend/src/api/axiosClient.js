@@ -8,12 +8,10 @@ const axiosClient = axios.create({
   },
 });
 
-// Interceptor de request (puedes agregar auth aquí)
+// Interceptor de request 
 axiosClient.interceptors.request.use(
   (config) => {
-    // Ejemplo: agregar token si existe
-    // const token = localStorage.getItem("token");
-    // if (token) config.headers.Authorization = `Bearer ${token}`;
+
     return config;
   },
   (error) => Promise.reject(error)
@@ -23,8 +21,7 @@ axiosClient.interceptors.request.use(
 axiosClient.interceptors.response.use(
   (response) => response,
   (error) => {
-    // Puedes manejar errores globales aquí
-    // if (error.response?.status === 401) { ... }
+    
     return Promise.reject(error);
   }
 );
