@@ -1,0 +1,33 @@
+# Archivos compilados y carpetas
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# Archivos de configuración local
+appsettings.local.json
+appsettings.*.local.json
+
+# Dependencias
+node_modules/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Otros
+*.log
+dist/
+coverage/
