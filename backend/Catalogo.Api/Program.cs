@@ -1,10 +1,21 @@
 using Catalogo.Api.Data;
 using Microsoft.EntityFrameworkCore;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+
+
+// CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend",
+        policy => policy.WithOrigins("http://localhost:5173")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod());
+});
 
 //Servicios
 builder.Services.AddControllers();
@@ -17,12 +28,18 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Servicio para carga masiva CSV
+builder.Services.AddTransient<Catalogo.Api.Services.CsvProductoImporter>();
 
 var app = builder.Build();
 
 // Swagger siempre activo 
+
 app.UseSwagger();
 app.UseSwaggerUI();
+
+// Habilitar CORS para el frontend
+app.UseCors("AllowFrontend");
 
 app.UseHttpsRedirection();
 app.UseAuthorization();

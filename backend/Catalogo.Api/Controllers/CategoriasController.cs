@@ -27,7 +27,8 @@ public class CategoriasController : ControllerBase
                 IdCategoria = c.IdCategoria,
                 Nombre = c.Nombre,
                 Descripcion = c.Descripcion,
-                Activo = c.Activo
+                Activo = c.Activo,
+                FechaCreacion = c.FechaCreacion
             })
             .ToListAsync();
 
@@ -64,7 +65,8 @@ public class CategoriasController : ControllerBase
             IdCategoria = categoria.IdCategoria,
             Nombre = categoria.Nombre,
             Descripcion = categoria.Descripcion,
-            Activo = categoria.Activo
+            Activo = categoria.Activo,
+            FechaCreacion = categoria.FechaCreacion
         };
 
         return CreatedAtAction(
@@ -84,7 +86,8 @@ public class CategoriasController : ControllerBase
                 IdCategoria = c.IdCategoria,
                 Nombre = c.Nombre,
                 Descripcion = c.Descripcion,
-                Activo = c.Activo
+                Activo = c.Activo,
+                FechaCreacion = c.FechaCreacion
             })
             .FirstOrDefaultAsync();
 
@@ -109,7 +112,7 @@ public class CategoriasController : ControllerBase
         var nombreExiste = await _context.Categorias
             .AnyAsync(c => c.Nombre == dto.Nombre && c.IdCategoria != id);
         if (nombreExiste)
-            return BadRequest("Ya existe una categoría con ese nombre.");
+            return BadRequest($"El nombre '{dto.Nombre}' ya pertenece a otra categoría.");
 
 
         categoriaExistente.Nombre = dto.Nombre;
